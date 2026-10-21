@@ -1,0 +1,17 @@
+event_id,user_id,content_id,event_type,event_time,watch_seconds,buffer_seconds,device_type,country
+evt001,1001,101,play,2026-10-01 10:00:01,120,0,Mobile,India
+evt002,1002,101,play,2026-10-01 10:01:15,180,0,Web,India
+evt003,1003,102,play,2026-10-01 10:02:30,150,0,TV,India
+evt004,1004,101,play,2026-10-01 10:03:10,240,0,Mobile,USA
+evt005,1005,103,play,2026-10-01 10:04:25,210,0,TV,UK
+evt006,1006,101,buffer,2026-10-01 10:05:40,0,8,Mobile,USA
+evt006,1006,101,buffer,2026-10-01 10:05:40,0,8,Mobile,USA
+evt007,1007,104,play,2026-10-01 10:06:05,300,0,Web,India
+evt008,1008,101,play,2026-10-01 10:07:20,360,0,TV,Canada
+evt009,1009,105,play,2026-10-01 10:08:35,180,0,Mobile,India
+evt010,1010,101,play,2026-10-01 10:10:00,420,0,Web,USA
+evt011,1001,102,play,2026-10-01 10:11:15,240,0,Mobile,India
+evt012,1002,101,buffer,2026-10-01 10:12:30,0,5,Web,India
+evt013,1003,106,play,2026-10-01 10:13:45,300,0,TV,India
+evt014,1004,101,pause,2026-10-01 10:14:50,0,0,Mobile,USA
+evt015,1005,103,play,2026-10-01 10:15:10,180,0,TV,UK

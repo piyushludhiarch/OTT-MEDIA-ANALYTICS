@@ -1,0 +1,14 @@
+# Local Python 3.12 dependencies for the OTT project.
+# Spark/Delta pins match the project's Spark 3.5 runtime.
+delta-spark==3.2.0
+boto3==1.39.9
+faiss-cpu==1.12.0
+happybase==1.2.0
+kafka-python==3.0.11
+numpy>=1.26,<3
+plotly==6.2.0
+pyspark==3.5.9
+pytest==7.4.0
+scikit-learn==1.6.1
+sentence-transformers>=3.0,<6
+streamlit==1.44.1

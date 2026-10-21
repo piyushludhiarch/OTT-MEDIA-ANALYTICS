@@ -1,0 +1,18 @@
+((.venv) ) mohit@MONI:~/ott-media-engagement$ python - <<'PY'
+import csv
+
+file = "data/generated/watch_events.csv"
+
+event_ids = []
+with open(file, newline="", encoding="utf-8") as f:
+    for row in csv.DictReader(f):
+        event_ids.append(row["event_id"])
+
+print("Total input rows:", len(event_ids))
+print("Unique event IDs:", len(set(event_ids)))
+print("Duplicate rows:", len(event_ids) - len(set(event_ids)))
+PY
+Total input rows: 52500
+Unique event IDs: 50000
+Duplicate rows: 2500
+((.venv) ) mohit@MONI:~/ott-media-engagement$
