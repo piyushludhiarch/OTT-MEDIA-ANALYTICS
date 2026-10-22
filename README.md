@@ -785,6 +785,11 @@ Partitions          3
 Replication factor  1
 ```
 
+These values and the offsets below describe the original Kafka broker used for
+the completed replay. The optional three-broker reliability cluster under
+`docker/kafka-3-broker-test/` is separate and creates the same topic with
+replication factor 3 and minimum in-sync replicas 2.
+
 Final offsets:
 
 ```text
@@ -2065,17 +2070,46 @@ From the project root:
 python src/kafka/watch_events_producer.py
 ```
 
-The producer publishes:
+By default, the producer reads:
 
 ```text
 data/generated/watch_events.csv
 ```
 
-to:
+and publishes to `watch_events_full` using all three local test-cluster
+addresses (`localhost:9092,localhost:29092,localhost:39092`). Override these
+settings with `WATCH_EVENTS_CSV`, `KAFKA_BOOTSTRAP_SERVERS`, and `KAFKA_TOPIC`,
+or with the `--input`, `--bootstrap-servers`, and `--topic` command-line
+options. A successful run waits for every Kafka acknowledgement; send errors
+are reported instead of silently ignored.
 
-```text
-watch_events_full
+## Three-Broker Kafka Reliability Cluster
+
+The Compose cluster is an optional isolated Kafka setup for exercising broker
+failure and recovery. Make sure no existing container or service is already
+using host port `9092`. From the project root:
+
+```bash
+docker compose -f docker/kafka-3-broker-test/docker-compose.yml up -d
+docker compose -f docker/kafka-3-broker-test/docker-compose.yml ps
 ```
+
+The compose project publishes broker listeners on ports `9092`, `29092`, and
+`39092`. Once the brokers pass their health checks, Compose creates
+`watch_events_full` with 3 partitions and replication factor 3. Spark's
+existing `localhost:9092` bootstrap address remains valid.
+
+To test a single-broker outage while retaining quorum and write availability:
+
+```bash
+docker compose -f docker/kafka-3-broker-test/docker-compose.yml stop kafka-1
+python src/kafka/watch_events_producer.py
+docker compose -f docker/kafka-3-broker-test/docker-compose.yml start kafka-1
+```
+
+The broker data is stored in named Docker volumes and survives `docker compose
+down`. To intentionally remove the cluster data and start fresh, use
+`docker compose -f docker/kafka-3-broker-test/docker-compose.yml down -v`.
 
 ---
 
